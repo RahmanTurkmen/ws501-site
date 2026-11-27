@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { Countdown, CountUp, Parallax, Reveal } from "@/components/motion";
+import { CharacterViewer } from "@/components/character-viewer";
 import { Reviews } from "@/components/reviews";
 import { AlertBar, Logo, Ticker, Title } from "@/components/site";
 import { publicReviews } from "@/lib/public-reviews";
@@ -21,11 +22,18 @@ const LEVELS = [
   ["jardin", "4 · Le jardin", "Aube rose et or, panique max"],
 ] as const;
 
-const TOYS = [
-  ["clic", "J1 · Clic", "Nerveux, insolent, mystérieux", "c-red"],
-  ["kwak", "J2 · Kwak", "Canard en rollers, frimeur", "c-blue"],
-  ["badaboum", "J3 · Badaboum", "Singe à cymbales, bruyant", "c-green"],
-  ["cosmo", "J4 · Cosmo", "Astronaute, trop sûr de lui", "c-orange"],
+// Noms du questionnaire (src/lib/default-questions.ts) : sert uniquement au « jouet préféré ».
+const TOY_NAMES = ["Clic", "Kwak", "Badaboum", "Cosmo"];
+
+const RUN = { clip: "NormalRun", label: "Course" };
+const CHARACTERS = [
+  { id: "clic", src: "/models/clic.glb", name: "Clic", text: "Le jouet à clé : nerveux, insolent, il court avant l’aube.", tone: "c-red", rim: "#ff3b3b", poster: "/img/clic.webp",
+    anims: [{ clip: "Idle", label: "Repos" }, RUN, { clip: "Jump", label: "Saut" }, { clip: "Slide", label: "Glisse" }, { clip: "PanickedLookBack", label: "Panique" }] },
+  { id: "duckbot", src: "/models/duckbot.glb", name: "DuckBot", text: "Le canard mécanique, frimeur et toujours en rollers.", tone: "c-blue", rim: "#19e6ff", poster: "/img/kwak.webp",
+    anims: [{ clip: "Idle", label: "Repos" }, RUN, { clip: "Jump", label: "Saut" }, { clip: "Grapple", label: "Grappin" }, { clip: "Cry", label: "Pleurs" }] },
+  { id: "bananaagent", src: "/models/bananaagent.glb", name: "BananaAgent", text: "L’agent très spécial : costume, nœud papillon, lunettes noires.", tone: "c-yellow", rim: "#ffc81f",
+    anims: [{ clip: "Idle", label: "Repos" }, RUN, { clip: "Jump", label: "Saut" }, { clip: "Slide", label: "Glisse" }, { clip: "PanickedLookBack", label: "Panique" }] },
+  { id: "cosmo", src: undefined, name: "Cosmo", text: "L’astronaute, trop sûr de lui. Modèle 3D bientôt disponible.", tone: "c-orange", rim: "#ff7a1f", poster: "/img/cosmo.webp", anims: [] },
 ] as const;
 
 const FAQ = [
@@ -39,7 +47,7 @@ export default async function Home() {
   const [rows, reviews] = await Promise.all([loadRows(), publicReviews(3)]);
   const note = average(rows.map((r) => r.rating));
   const reco = recommendShare(rows);
-  const toy = top(rows, "toy", TOYS.map((t) => t[1].split("· ")[1]));
+  const toy = top(rows, "toy", TOY_NAMES);
 
   return (
     <>
@@ -104,14 +112,14 @@ export default async function Home() {
       <section className="section">
         <div className="halftone" style={{ left: 0, top: 0, color: "var(--teal)" }} />
         <div className="wrap">
-          <Title num="03">Quatre jouets, une même clé</Title>
-          <p className="lead">Tous sortent du même bac : corps articulé, rotules dorées et grande clé dans le dos.</p>
-          <div className="grid" style={{ "--cols": 4, "--cols-m": 2 } as React.CSSProperties}>
-            {TOYS.map(([id, name, text, tone], i) => (
-              <Reveal key={id} delay={i * 130} from={i < 2 ? "left" : "right"}>
-                <div className="card poster" style={{ "--ratio": "3/4" } as React.CSSProperties}>
-                  <img src={`/img/${id}.webp`} alt={name} loading="lazy" />
-                  <div className={tone}><h3>{name}</h3><p>{text}</p></div>
+          <Title num="03">Quatre persos, une course</Title>
+          <p className="lead">Glisse pour les faire tourner, change leur animation : ils sortent tout droit du jeu.</p>
+          <div className="grid" style={{ "--cols": 4, "--cols-m": 1 } as React.CSSProperties}>
+            {CHARACTERS.map((c, i) => (
+              <Reveal key={c.id} delay={i * 130} from={i < 2 ? "left" : "right"}>
+                <div className="card poster char-card">
+                  <CharacterViewer src={c.src} name={c.name} anims={[...c.anims]} rim={c.rim} poster={"poster" in c ? c.poster : undefined} />
+                  <div className={c.tone}><h3>{c.name}</h3><p>{c.text}</p></div>
                 </div>
               </Reveal>
             ))}
@@ -158,7 +166,7 @@ export default async function Home() {
             <Link href="/questionnaire" className="btn btn-big">Donner mon avis</Link>
           </div>
           <Reveal from="right">
-            <figure><img src="/img/panique.webp" alt="Clic en panique maximale, la main descend vers lui" loading="lazy" /></figure>
+            <figure><img src="/img/panique-duckbot.webp" alt="DuckBot plonge en avant, une main géante descend derrière lui : VITE !!" loading="lazy" /></figure>
           </Reveal>
         </div>
       </section>

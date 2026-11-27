@@ -43,3 +43,6 @@ next-env.d.ts
 !.env.example
 /src/generated/
 .assets-src
+
+# journaux Playwright
+/.playwright-mcp/

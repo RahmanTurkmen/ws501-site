@@ -12,7 +12,7 @@ export default function NotFound() {
         <div className="wrap">
           <Logo />
           <p className="tag">clic… clic…</p>
-          <img src="/img/clic-panne.webp" alt="" style={{ height: 300, animation: "sway 2.6s ease-in-out infinite" }} />
+          <img src="/img/clic-panne.webp" alt="" loading="lazy" style={{ height: 300, animation: "sway 2.6s ease-in-out infinite" }} />
           <h1 className="big-title">404 · Panne sèche</h1>
           <p style={{ fontSize: 20 }}>Cette page s’est arrêtée en route.</p>
           <div className="filters" style={{ justifyContent: "center" }}>

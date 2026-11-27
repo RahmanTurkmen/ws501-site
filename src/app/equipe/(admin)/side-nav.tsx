@@ -13,6 +13,7 @@ export function SideNav({ counts, isAdmin }: { counts: { responses: number; pend
     ["/equipe/gameplay", "Gameplay"],
     ["/equipe/bugs", "Bugs signalés", counts.bugs, "red"],
     ["/equipe/exports", "Exports"],
+    ["/equipe/qrcode", "QR codes"],
     ...(isAdmin ? ([["/equipe/formulaire", "Formulaire"], ["/equipe/membres", "Équipe & accès"]] as [string, string][]) : []),
     ["/equipe/compte", "Mon compte"],
   ];

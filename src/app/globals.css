@@ -302,6 +302,8 @@ input[type="checkbox"] { width: 24px; height: 24px; flex: none; accent-color: va
   .split, .final .wrap, .quiz-grid { grid-template-columns: minmax(0, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .footer-grid > div { grid-column: 1 / -1; }
+  .footer-grid nav { gap: 0; }
+  .footer-grid nav a { display: flex; align-items: center; min-height: 44px; }
   .hero { flex-direction: column; justify-content: flex-start; }
   .hero::before { background: linear-gradient(rgb(20 16 31 / .1), var(--ink) 46%); }
   .hero-bg { bottom: auto; height: 380px; }
@@ -325,3 +327,14 @@ html[data-calm="1"] .runner, html[data-calm="1"] .confetti { display: none; }
   .reveal { opacity: 1; translate: 0 0; scale: 1; }
   .runner, .confetti { display: none; }
 }
+
+/* ───── persos 3D ───── */
+.char-card:hover { rotate: 0deg; }
+.char-card .viewer { display: flex; flex-direction: column; background: radial-gradient(circle at 50% 38%, var(--night2), var(--ink) 75%); }
+.viewer-stage { position: relative; aspect-ratio: 3/4; display: grid; place-items: center; overflow: hidden; }
+.viewer-stage img { height: 100%; object-fit: contain; background: none; scale: 1 !important; }
+.viewer-wait { font: 700 13px var(--mono); text-transform: uppercase; color: var(--lilac); animation: sway 2.6s ease-in-out infinite; }
+.viewer-anims { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; padding: 10px 12px 14px; }
+.viewer-anims button { min-height: 36px; padding: 4px 12px; border-radius: 999px; border: 3px solid var(--ink); background: var(--night2); color: var(--cream); font: 700 12px var(--mono); text-transform: uppercase; cursor: pointer; }
+.viewer-anims button:hover { background: var(--night); border-color: var(--yellow); }
+.viewer-anims button[aria-pressed="true"] { background: var(--yellow); color: var(--ink); }
