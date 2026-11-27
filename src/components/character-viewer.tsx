@@ -61,29 +61,6 @@ export function CharacterViewer({ src, name, anims, rim = "#19e6ff", poster }: P
 
         const gltf = await new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).loadAsync(src);
         const model = gltf.scene;
-        const box = new THREE.Box3().setFromObject(model);
-        const size = box.getSize(new THREE.Vector3());
-        const center = box.getCenter(new THREE.Vector3());
-        model.position.sub(center);
-        const pivot = new THREE.Group();
-        pivot.add(model);
-        scene.add(pivot);
-
-        const radius = Math.max(size.x, size.y, size.z) * 0.5;
-        const dist = (radius * 1.25) / Math.tan((camera.fov * Math.PI) / 360);
-        camera.position.set(0, size.y * 0.05, dist);
-        camera.lookAt(0, 0, 0);
-
-        const controls = new OrbitControls(camera, canvas);
-        controls.enablePan = false;
-        controls.enableZoom = false;
-        controls.enableDamping = true;
-        controls.minPolarAngle = Math.PI * 0.3;
-        controls.maxPolarAngle = Math.PI * 0.62;
-        const calm = isCalm();
-        controls.autoRotate = !calm;
-        controls.autoRotateSpeed = 2.2;
-
         const mixer = new THREE.AnimationMixer(model);
         let current: import("three").AnimationAction | null = null;
         play.current = (clip) => {
@@ -96,6 +73,34 @@ export function CharacterViewer({ src, name, anims, rim = "#19e6ff", poster }: P
           current = next;
         };
         play.current(first ?? "");
+        // On mesure le perso dans sa première pose animée : au repos brut, certains modèles sont plus petits ou plus larges.
+        mixer.update(0);
+        model.updateMatrixWorld(true);
+        const box = new THREE.Box3().setFromObject(model);
+        const size = box.getSize(new THREE.Vector3());
+        const center = box.getCenter(new THREE.Vector3());
+        model.position.sub(center);
+        const pivot = new THREE.Group();
+        pivot.add(model);
+        scene.add(pivot);
+
+        // Cadrage : le perso doit tenir en hauteur ET en largeur (la carte est en portrait), même en tournant.
+        const half = Math.tan((camera.fov * Math.PI) / 360);
+        const aspect = (el.clientWidth || 3) / (el.clientHeight || 4);
+        const wide = Math.max(size.x, size.z) * 0.5;
+        const dist = Math.max((size.y * 0.5) / half, wide / (half * aspect)) * 1.3;
+        camera.position.set(0, size.y * 0.05, dist);
+        camera.lookAt(0, 0, 0);
+
+        const controls = new OrbitControls(camera, canvas);
+        controls.enablePan = false;
+        controls.enableZoom = false;
+        controls.enableDamping = true;
+        controls.minPolarAngle = Math.PI * 0.3;
+        controls.maxPolarAngle = Math.PI * 0.62;
+        const calm = isCalm();
+        controls.autoRotate = !calm;
+        controls.autoRotateSpeed = 2.2;
 
         const resize = () => {
           const w = el.clientWidth, h = el.clientHeight;
@@ -153,7 +158,7 @@ export function CharacterViewer({ src, name, anims, rim = "#19e6ff", poster }: P
   }, [src, name, rim, first]);
 
   return (
-    <div className="viewer">
+    <div className={`viewer${src ? "" : " viewer-static"}`}>
       <div ref={host} className="viewer-stage" data-state={state}>
         {state !== "ready" && (
           // eslint-disable-next-line @next/next/no-img-element

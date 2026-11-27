@@ -27,14 +27,14 @@ const PAD = [
 ];
 
 const SHOTS = [
-  ["course", "La course", "Clic détale sur le parquet, DuckBot sur ses talons."],
-  ["porte", "La porte entrouverte", "Le couloir, et BananaAgent qui file devant."],
+  ["course", "La course", "Clic détale sur le parquet, Kwak sur ses talons."],
+  ["porte", "La porte entrouverte", "Le couloir, et Banana Agent qui file devant."],
   ["lune", "Clair de lune", "Une halte sur le bureau, face à la fenêtre."],
   ["sous_le_lit", "Sous le lit", "Clic se cache les mains sur la tête."],
   ["panique", "Panique", "Plus un seul endroit où se poser."],
   ["poursuite", "La poursuite", "Vue de haut : quelqu’un est sur leurs traces."],
   ["ombres", "Les ombres", "Deux yeux rouges dans le noir."],
-  ["duo", "Le trio", "Clic, DuckBot et BananaAgent, prêts à courir."],
+  ["duo", "Le trio", "Clic, Kwak et Banana Agent, prêts à courir."],
   ["grande_chambre", "La grande chambre", "Le terrain de jeu, vu d’en bas."],
 ] as const;
 
@@ -109,7 +109,7 @@ export default function GamePage() {
         <div className="wrap">
           <Title num="04">Dans la chambre</Title>
           <p className="lead">Des images tirées du jeu : la chambre, la nuit, et trois jouets qui courent.</p>
-          <Reveal from="pop"><img className="framed" src="/img/jeu/banniere.webp" alt="Clic, DuckBot et BananaAgent courent à travers la chambre, la nuit" loading="lazy" /></Reveal>
+          <Reveal from="pop"><img className="framed" src="/img/jeu/banniere.webp" alt="Clic, Kwak et Banana Agent courent à travers la chambre, la nuit" loading="lazy" /></Reveal>
           <div className="grid" style={{ "--cols": 3, "--cols-m": 2 } as React.CSSProperties}>
             {SHOTS.map(([id, title, text], i) => (
               <Reveal key={id} delay={(i % 3) * 120} from="pop">

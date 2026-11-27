@@ -51,7 +51,7 @@ async function main() {
       support,
       pseudo: `Démo ${String(i + 1).padStart(2, "0")}`,
       universe: pick([5, 4, 5, 4, 3], i),
-      toy: pick(["Clic", "Clic", "Kwak", "Clic", "Badaboum", "Cosmo"], i),
+      toy: pick(["Clic", "Clic", "Kwak", "Clic", "Banana Agent", "Cosmo"], i),
       level: pick(["Cuisine", "Jardin", "Cuisine", "Bac à jouets", "Couloir"], i),
       ambiance: [pick(["Drôle", "Stressante", "Colorée"], i), pick(["Stressante", "Nostalgique"], i + 1)],
       story: pick(["Oui, tout", "Oui, tout", "En partie", "Oui, tout", "Pas vraiment"], i),

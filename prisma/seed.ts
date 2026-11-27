@@ -13,6 +13,19 @@ async function main() {
     });
   }
 
+  // Met à niveau le « jouet préféré » d'une base existante : Banana Agent ajouté, Badaboum retiré.
+  // Les anciennes réponses « Badaboum » restent en base ; seul le choix disparaît du formulaire.
+  const toy = await db.question.findUnique({ where: { key: "toy" } });
+  const options = Array.isArray(toy?.options) ? (toy.options as { label: string; image?: string }[]) : null;
+  if (toy && options) {
+    const next = options.filter((o) => o.label !== "Badaboum");
+    if (!next.some((o) => o.label === "Banana Agent")) next.push({ label: "Banana Agent", image: "/img/banana-agent.webp" });
+    if (JSON.stringify(next) !== JSON.stringify(options)) {
+      await db.question.update({ where: { key: "toy" }, data: { options: next } });
+      console.log("Jouet préféré mis à jour.");
+    }
+  }
+
   await db.setting.upsert({ where: { key: "formOpen" }, update: {}, create: { key: "formOpen", value: "true" } });
 
   if ((await db.user.count()) === 0) {

@@ -23,17 +23,19 @@ const LEVELS = [
 ] as const;
 
 // Noms du questionnaire (src/lib/default-questions.ts) : sert uniquement au « jouet préféré ».
-const TOY_NAMES = ["Clic", "Kwak", "Badaboum", "Cosmo"];
+const TOY_NAMES = ["Clic", "Kwak", "Cosmo", "Banana Agent"];
 
-const RUN = { clip: "NormalRun", label: "Course" };
+const A = (clip: string, label: string) => ({ clip, label });
+const IDLE = A("Idle", "Repos"), RUN = A("NormalRun", "Course"), JUMP = A("Jump", "Saut");
 const CHARACTERS = [
-  { id: "clic", src: "/models/clic.glb", name: "Clic", text: "Le jouet à clé : nerveux, insolent, il court avant l’aube.", tone: "c-red", rim: "#ff3b3b", poster: "/img/clic.webp",
-    anims: [{ clip: "Idle", label: "Repos" }, RUN, { clip: "Jump", label: "Saut" }, { clip: "Slide", label: "Glisse" }, { clip: "PanickedLookBack", label: "Panique" }] },
-  { id: "duckbot", src: "/models/duckbot.glb", name: "DuckBot", text: "Le canard mécanique, frimeur et toujours en rollers.", tone: "c-blue", rim: "#19e6ff", poster: "/img/kwak.webp",
-    anims: [{ clip: "Idle", label: "Repos" }, RUN, { clip: "Jump", label: "Saut" }, { clip: "Grapple", label: "Grappin" }, { clip: "Cry", label: "Pleurs" }] },
-  { id: "bananaagent", src: "/models/bananaagent.glb", name: "BananaAgent", text: "L’agent très spécial : costume, nœud papillon, lunettes noires.", tone: "c-yellow", rim: "#ffc81f",
-    anims: [{ clip: "Idle", label: "Repos" }, RUN, { clip: "Jump", label: "Saut" }, { clip: "Slide", label: "Glisse" }, { clip: "PanickedLookBack", label: "Panique" }] },
-  { id: "cosmo", src: undefined, name: "Cosmo", text: "L’astronaute, trop sûr de lui. Modèle 3D bientôt disponible.", tone: "c-orange", rim: "#ff7a1f", poster: "/img/cosmo.webp", anims: [] },
+  { id: "clic", src: "/models/clic.glb", name: "Clic", text: "Nerveux, insolent, mystérieux", tone: "c-red", rim: "#ff3b3b", poster: "/img/clic.webp",
+    anims: [IDLE, RUN, JUMP, A("Slide", "Glisse"), A("PanickedLookBack", "Panique")] },
+  { id: "kwak", src: "/models/kwak.glb", name: "Kwak", text: "Canard en rollers, frimeur", tone: "c-blue", rim: "#19e6ff", poster: "/img/kwak.webp",
+    anims: [IDLE, RUN, JUMP, A("Grapple", "Grappin"), A("Cry", "Pleurs")] },
+  { id: "cosmo", src: "/models/cosmo.glb", name: "Cosmo", text: "Astronaute, trop sûr de lui", tone: "c-orange", rim: "#ff7a1f", poster: "/img/cosmo.webp",
+    anims: [IDLE, RUN, JUMP, A("Grapple", "Grappin"), A("PanickedLookBack", "Panique")] },
+  { id: "banana-agent", src: "/models/banana-agent.glb", name: "Banana Agent", text: "Banane en costume, nœud papillon, lunettes noires", tone: "c-yellow", rim: "#ffc81f", poster: "/img/banana-agent.webp",
+    anims: [IDLE, RUN, JUMP, A("Slide", "Glisse"), A("PanickedLookBack", "Panique")] },
 ] as const;
 
 const FAQ = [
@@ -112,13 +114,13 @@ export default async function Home() {
       <section className="section">
         <div className="halftone" style={{ left: 0, top: 0, color: "var(--teal)" }} />
         <div className="wrap">
-          <Title num="03">Quatre persos, une course</Title>
-          <p className="lead">Glisse pour les faire tourner, change leur animation : ils sortent tout droit du jeu.</p>
-          <div className="grid" style={{ "--cols": 4, "--cols-m": 1 } as React.CSSProperties}>
+          <Title num="03">Les persos</Title>
+          <p className="lead">Glisse pour les faire tourner, change leur animation.</p>
+          <div className="grid" style={{ "--cols": 4, "--cols-m": 2 } as React.CSSProperties}>
             {CHARACTERS.map((c, i) => (
               <Reveal key={c.id} delay={i * 130} from={i < 2 ? "left" : "right"}>
                 <div className="card poster char-card">
-                  <CharacterViewer src={c.src} name={c.name} anims={[...c.anims]} rim={c.rim} poster={"poster" in c ? c.poster : undefined} />
+                  <CharacterViewer src={c.src} name={c.name} anims={[...c.anims]} rim={c.rim} poster={c.poster} />
                   <div className={c.tone}><h3>{c.name}</h3><p>{c.text}</p></div>
                 </div>
               </Reveal>
@@ -166,7 +168,7 @@ export default async function Home() {
             <Link href="/questionnaire" className="btn btn-big">Donner mon avis</Link>
           </div>
           <Reveal from="right">
-            <figure><img src="/img/panique-duckbot.webp" alt="DuckBot plonge en avant, une main géante descend derrière lui : VITE !!" loading="lazy" /></figure>
+            <figure><img src="/img/panique-kwak.webp" alt="Kwak plonge en avant, une main géante descend derrière lui : VITE !!" loading="lazy" /></figure>
           </Reveal>
         </div>
       </section>

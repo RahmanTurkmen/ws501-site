@@ -28,8 +28,8 @@ export const DEFAULT_QUESTIONS: Seed[] = [
     options: [
       { label: "Clic", image: "/img/clic.webp" },
       { label: "Kwak", image: "/img/kwak.webp" },
-      { label: "Badaboum", image: "/img/badaboum.webp" },
       { label: "Cosmo", image: "/img/cosmo.webp" },
+      { label: "Banana Agent", image: "/img/banana-agent.webp" },
     ] },
   { key: "level", step: 2, label: "Ton niveau préféré ?", type: "IMAGES", required: true,
     options: [
