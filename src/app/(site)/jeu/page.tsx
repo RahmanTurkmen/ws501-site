@@ -26,6 +26,18 @@ const PAD = [
   ["La manivelle", "Glisse le pouce de haut en bas pour remonter Clic. Vide : très lent. Surcharge : déréglé.", "var(--yellow)"],
 ];
 
+const SHOTS = [
+  ["course", "La course", "Clic détale sur le parquet, DuckBot sur ses talons."],
+  ["porte", "La porte entrouverte", "Le couloir, et BananaAgent qui file devant."],
+  ["lune", "Clair de lune", "Une halte sur le bureau, face à la fenêtre."],
+  ["sous_le_lit", "Sous le lit", "Clic se cache les mains sur la tête."],
+  ["panique", "Panique", "Plus un seul endroit où se poser."],
+  ["poursuite", "La poursuite", "Vue de haut : quelqu’un est sur leurs traces."],
+  ["ombres", "Les ombres", "Deux yeux rouges dans le noir."],
+  ["duo", "Le trio", "Clic, DuckBot et BananaAgent, prêts à courir."],
+  ["grande_chambre", "La grande chambre", "Le terrain de jeu, vu d’en bas."],
+] as const;
+
 export default function GamePage() {
   return (
     <>
@@ -89,6 +101,24 @@ export default function GamePage() {
                 </Reveal>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="wrap">
+          <Title num="04">Dans la chambre</Title>
+          <p className="lead">Des images tirées du jeu : la chambre, la nuit, et trois jouets qui courent.</p>
+          <Reveal from="pop"><img className="framed" src="/img/jeu/banniere.webp" alt="Clic, DuckBot et BananaAgent courent à travers la chambre, la nuit" loading="lazy" /></Reveal>
+          <div className="grid" style={{ "--cols": 3, "--cols-m": 2 } as React.CSSProperties}>
+            {SHOTS.map(([id, title, text], i) => (
+              <Reveal key={id} delay={(i % 3) * 120} from="pop">
+                <figure className="card poster shot" style={{ "--ratio": "5/7" } as React.CSSProperties}>
+                  <img src={`/img/jeu/${id}.webp`} alt={`${title} : ${text}`} loading="lazy" />
+                  <figcaption><h3>{title}</h3><p className="muted">{text}</p></figcaption>
+                </figure>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>

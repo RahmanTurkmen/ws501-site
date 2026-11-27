@@ -338,3 +338,8 @@ html[data-calm="1"] .runner, html[data-calm="1"] .confetti { display: none; }
 .viewer-anims button { min-height: 36px; padding: 4px 12px; border-radius: 999px; border: 3px solid var(--ink); background: var(--night2); color: var(--cream); font: 700 12px var(--mono); text-transform: uppercase; cursor: pointer; }
 .viewer-anims button:hover { background: var(--night); border-color: var(--yellow); }
 .viewer-anims button[aria-pressed="true"] { background: var(--yellow); color: var(--ink); }
+
+/* ───── galerie d'images du jeu ───── */
+.shot { margin: 0; }
+.shot > figcaption { position: relative; z-index: 1; padding: 16px 18px 20px; }
+.shot h3 { margin-bottom: 4px; }
