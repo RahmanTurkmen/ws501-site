@@ -1,0 +1,6 @@
+.env
+.env.local
+.assets-src
+node_modules
+.next
+src/generated

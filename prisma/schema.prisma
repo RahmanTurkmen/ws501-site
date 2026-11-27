@@ -1,0 +1,128 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  MODERATOR
+  VIEWER
+}
+
+enum QuestionType {
+  SINGLE
+  MULTI
+  RATING
+  SLIDER
+  TEXT_SHORT
+  TEXT_LONG
+  IMAGES
+  SCORE10
+  PANIC
+}
+
+enum ResponseStatus {
+  NEW
+  TODO
+  DOING
+  DONE
+  READ
+}
+
+enum BugStatus {
+  TODO
+  DOING
+  DONE
+}
+
+enum Priority {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String
+  role         Role      @default(MODERATOR)
+  failedLogins Int       @default(0)
+  lockedUntil  DateTime?
+  lastSeenAt   DateTime?
+  createdAt    DateTime  @default(now())
+  sessions     Session[]
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+}
+
+model Question {
+  id       String       @id @default(cuid())
+  key      String       @unique
+  step     Int
+  position Int
+  label    String
+  help     String?
+  type     QuestionType
+  options  Json         @default("[]")
+  required Boolean      @default(false)
+  active   Boolean      @default(true)
+}
+
+model Response {
+  id        String         @id @default(cuid())
+  createdAt DateTime       @default(now())
+  answers   Json
+  pseudo    String?
+  age       String?
+  support   String?
+  rating    Int?
+  recommend Int?
+  liked     String?
+  improve   String?
+  status    ResponseStatus @default(NEW)
+  note      String?
+  assignee  String?
+  published Boolean        @default(false)
+  hidden    Boolean        @default(false)
+  flag      String?
+
+  @@index([createdAt])
+  @@index([published])
+}
+
+model Bug {
+  id        String    @id @default(cuid())
+  title     String
+  support   String    @default("Non précisé")
+  priority  Priority  @default(MEDIUM)
+  status    BugStatus @default(TODO)
+  count     Int       @default(1)
+  createdAt DateTime  @default(now())
+
+  @@unique([title, support])
+}
+
+model Setting {
+  key   String @id
+  value String
+}
+
+model ExportLog {
+  id        String   @id @default(cuid())
+  filename  String
+  format    String
+  rows      Int
+  query     String
+  author    String
+  createdAt DateTime @default(now())
+}
