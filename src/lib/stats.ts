@@ -52,8 +52,8 @@ export function promoterScore(rows: Row[]) {
   return Math.round(((v.filter((x) => x >= 9).length - v.filter((x) => x <= 6).length) / v.length) * 100);
 }
 
-export const percent = (x: number | null) => (x === null ? "—" : `${Math.round(x * 100)} %`);
-export const decimal = (x: number | null) => (x === null ? "—" : x.toLocaleString("fr-FR", { maximumFractionDigits: 1, minimumFractionDigits: 1 }));
+export const percent = (x: number | null) => (x === null ? "-" : `${Math.round(x * 100)} %`);
+export const decimal = (x: number | null) => (x === null ? "-" : x.toLocaleString("fr-FR", { maximumFractionDigits: 1, minimumFractionDigits: 1 }));
 
 /** Nombre de réponses pour chacun des 7 derniers jours (heure de Paris). */
 export function lastDays(rows: Row[], count = 7) {

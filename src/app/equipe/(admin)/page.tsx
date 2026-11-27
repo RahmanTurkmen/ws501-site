@@ -74,8 +74,8 @@ export default async function Dashboard({ searchParams }: PageProps<"/equipe">) 
                 {latest.map((r) => (
                   <tr key={r.id}>
                     <td>{shortDate(r.createdAt)}</td><td>{r.pseudo ?? "Anonyme"}</td><td>{r.support}</td>
-                    <td style={{ color: "var(--yellow)", fontWeight: 700 }}>{r.rating ? `${r.rating}/5` : "—"}</td>
-                    <td>{(r.liked || r.improve || "—").slice(0, 70)}</td>
+                    <td style={{ color: "var(--yellow)", fontWeight: 700 }}>{r.rating ? `${r.rating}/5` : "-"}</td>
+                    <td>{(r.liked || r.improve || "-").slice(0, 70)}</td>
                     <td><span className={`status ${r.status}`}>{STATUS[r.status]}</span></td>
                     <td><Link className="more" href={`/equipe/reponses/${r.id}`}>Voir →</Link></td>
                   </tr>

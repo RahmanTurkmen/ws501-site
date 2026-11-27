@@ -64,7 +64,7 @@ export default async function ResponsesPage({ searchParams }: PageProps<"/equipe
                     <td><input type="checkbox" name="ids" value={r.id} aria-label={`Choisir la réponse de ${r.pseudo ?? "Anonyme"}`} /></td>
                     <td>{shortDate(r.createdAt)}</td><td>{r.pseudo ?? "Anonyme"}</td><td>{r.age}</td><td>{r.support}</td>
                     <td style={{ color: "var(--yellow)", whiteSpace: "nowrap" }}>{stars(r.rating)}</td>
-                    <td>{r.flag && "⚠ "}{(r.liked || r.improve || "—").slice(0, 60)}</td>
+                    <td>{r.flag && "⚠ "}{(r.liked || r.improve || "-").slice(0, 60)}</td>
                     <td><span className={`status ${r.status}`}>{STATUS[r.status]}</span></td>
                     <td><Link className="more" href={`/equipe/reponses/${r.id}`}>Voir →</Link></td>
                   </tr>

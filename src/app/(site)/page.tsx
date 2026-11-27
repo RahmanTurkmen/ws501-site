@@ -10,7 +10,7 @@ import { average, loadRows, recommendShare, top } from "@/lib/stats";
 export const dynamic = "force-dynamic";
 
 const STEPS = [
-  ["1", "Tu joues", "Teste OUT! sur la borne ou en ligne. Une manche suffit pour donner un avis.", "c-red", "-2deg"],
+  ["1", "Tu joues", "Lance OUT! sur un grand écran, ton téléphone devient la manette. Une manche suffit pour donner un avis.", "c-red", "-2deg"],
   ["2", "Tu réponds", "4 petites étapes : ton profil, l’univers, le gameplay et ton ressenti.", "c-yellow", "1.6deg"],
   ["3", "On améliore", "L’équipe lit chaque réponse et ajuste le jeu avant la version finale.", "c-teal", "-1.4deg"],
 ] as const;
@@ -39,7 +39,7 @@ const CHARACTERS = [
 ] as const;
 
 const FAQ = [
-  ["Faut-il avoir joué pour répondre ?", "C’est mieux : une manche sur la borne pendant les journées de test ou avec la version en ligne suffit."],
+  ["Faut-il avoir joué pour répondre ?", "C’est mieux : une seule manche suffit. Tu peux aussi répondre en te basant sur ce que tu as vu du jeu sur ce site."],
   ["Combien de temps ça prend ?", "Environ 3 minutes, en 4 petites étapes."],
   ["Mes réponses sont-elles anonymes ?", "Aucun e-mail ni nom réel n’est demandé, et le pseudo est facultatif."],
   ["Que faites-vous de mes réponses ?", "Elles servent uniquement à améliorer le jeu OUT!."],
@@ -65,7 +65,7 @@ export default async function Home() {
           <p className="tag">avant l’aube…</p>
           <Logo className="hero-logo" href={null} />
           <h1 className="glitch">Vite ! Le jour<br />se lève !</h1>
-          <p style={{ fontSize: 20 }}>Les lumières s’éteignent, la main descend, le ressort de Clic est presque vide. Tu as joué ? Dis-nous vite ce qui t’a fait paniquer.</p>
+          <p style={{ fontSize: 20 }}>OUT! est un jeu de course sur grand écran : ton téléphone sert de manette, et tu aides Clic, un jouet à remontoir, à traverser la maison avant que son ressort s’arrête. Tu as joué ? Dis-nous ce qui t’a fait paniquer.</p>
           <div className="hero-actions">
             <Link href="/questionnaire" className="btn btn-big">Vite, donner mon avis</Link>
             <Link href="/jeu" className="btn btn-alt">Découvrir le jeu</Link>
@@ -133,11 +133,12 @@ export default async function Home() {
         <div className="wrap">
           <Title num="04">Ce que disent les testeurs</Title>
           <div className="grid" style={{ "--cols": 4, "--cols-m": 2 } as React.CSSProperties}>
-            <div className="card stat c-yellow"><strong>{note === null ? "—" : <CountUp value={note} decimals={1} suffix="/5" />}</strong>Note moyenne</div>
+            <div className="card stat c-yellow"><strong>{note === null ? "-" : <CountUp value={note} decimals={1} suffix="/5" />}</strong>Note moyenne</div>
             <div className="card stat c-teal"><strong><CountUp value={rows.length} /></strong>Réponses reçues</div>
-            <div className="card stat c-pink"><strong>{reco === null ? "—" : <CountUp value={reco * 100} suffix=" %" />}</strong>Recommandent le jeu</div>
-            <div className="card stat c-orange"><strong style={{ fontSize: toy && toy.label.length > 6 ? 30 : undefined }}>{toy?.label ?? "—"}</strong>Jouet préféré</div>
+            <div className="card stat c-pink"><strong>{reco === null ? "-" : <CountUp value={reco * 100} suffix=" %" />}</strong>Recommandent le jeu</div>
+            <div className="card stat c-orange"><strong style={{ fontSize: toy && toy.label.length > 6 ? 30 : undefined }}>{toy?.label ?? "-"}</strong>Jouet préféré</div>
           </div>
+          {rows.length === 0 && <p className="lead">Les premiers avis arrivent : les chiffres s’afficheront dès la première réponse.</p>}
           <Reviews reviews={reviews} />
           <div><Link href="/avis" className="btn btn-alt">Voir tous les avis</Link></div>
         </div>
@@ -163,7 +164,7 @@ export default async function Home() {
         <div className="wrap">
           <div className="copy">
             <p className="tag">vite !!</p>
-            <h2 className="glitch">Trop tard dans 3, 2, 1…</h2>
+            <h2 className="glitch">Ton avis, en 3 minutes chrono</h2>
             <p style={{ fontSize: 20 }}>3 minutes suffisent. Ton avis peut changer la suite de la course.</p>
             <Link href="/questionnaire" className="btn btn-big">Donner mon avis</Link>
           </div>

@@ -27,7 +27,7 @@ export function Stats({ items }: { items: [string | number | null, string, { dec
       {items.map(([value, label, format], i) => (
         <div key={label} className={`card stat ${tones[i % 4]}`}>
           <strong style={typeof value === "string" && value.length > 6 ? { fontSize: 26 } : undefined}>
-            {value === null ? "—" : typeof value === "number" ? <CountUp value={value} {...format} /> : value}
+            {value === null ? "-" : typeof value === "number" ? <CountUp value={value} {...format} /> : value}
           </strong>
           {label}
         </div>

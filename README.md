@@ -1,4 +1,4 @@
-# OUT! — site de recueil des avis
+# OUT! - site de recueil des avis
 
 Site public, questionnaire et espace équipe du jeu OUT!.
 

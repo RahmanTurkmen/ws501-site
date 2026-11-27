@@ -8,7 +8,7 @@ const mono = Space_Mono({ weight: "700", subsets: ["latin"], variable: "--f-mono
 const marker = Permanent_Marker({ weight: "400", subsets: ["latin"], variable: "--f-tag" });
 
 export const metadata: Metadata = {
-  title: { default: "OUT! — Donne ton avis", template: "%s · OUT!" },
+  title: { default: "OUT! - Donne ton avis", template: "%s · OUT!" },
   description: "OUT!, la course d’un jouet à clé avant l’aube. Teste le jeu et dis-nous ce qui t’a fait paniquer.",
   icons: { icon: "/img/logo.svg" },
 };

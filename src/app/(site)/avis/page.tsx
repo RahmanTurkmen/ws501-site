@@ -52,10 +52,10 @@ export default async function ReviewsPage({ searchParams }: PageProps<"/avis">) 
       <section className="section">
         <div className="wrap">
           <div className="grid" style={{ "--cols": 4, "--cols-m": 2 } as React.CSSProperties}>
-            <div className="card stat c-yellow"><strong>{note === null ? "—" : <CountUp value={note} decimals={1} suffix="/5" />}</strong>Note moyenne</div>
+            <div className="card stat c-yellow"><strong>{note === null ? "-" : <CountUp value={note} decimals={1} suffix="/5" />}</strong>Note moyenne</div>
             <div className="card stat c-teal"><strong><CountUp value={rows.length} /></strong>Réponses</div>
-            <div className="card stat c-pink"><strong>{reco === null ? "—" : <CountUp value={reco * 100} suffix=" %" />}</strong>Le recommandent</div>
-            <div className="card stat c-orange"><strong>{rows.length ? percent(danger.share) : "—"}</strong>Ont le plus paniqué face au danger</div>
+            <div className="card stat c-pink"><strong>{reco === null ? "-" : <CountUp value={reco * 100} suffix=" %" />}</strong>Le recommandent</div>
+            <div className="card stat c-orange"><strong>{rows.length ? percent(danger.share) : "-"}</strong>Ont le plus paniqué face au danger</div>
           </div>
           <div className="grid" style={{ "--cols": 2 } as React.CSSProperties}>
             <div className="card">
