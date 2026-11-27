@@ -27,13 +27,13 @@ const PAD = [
 ];
 
 const SHOTS = [
-  ["course", "La course", "Clic détale sur le parquet, Kwak sur ses talons."],
+  ["course", "La course", "Clic détale sur le parquet, Kwak l’attend plus loin."],
   ["porte", "La porte entrouverte", "Le couloir, et Banana Agent qui file devant."],
   ["lune", "Clair de lune", "Une halte sur le bureau, face à la fenêtre."],
   ["sous_le_lit", "Sous le lit", "Clic se cache les mains sur la tête."],
   ["panique", "Panique", "Plus un seul endroit où se poser."],
-  ["poursuite", "La poursuite", "Vue de haut : quelqu’un est sur leurs traces."],
-  ["ombres", "Les ombres", "Deux yeux rouges dans le noir."],
+  ["ombres", "La poursuite", "Vue de haut : quelqu’un est sur leurs traces."],
+  ["poursuite", "Les ombres", "Deux yeux rouges dans le noir."],
   ["duo", "Le trio", "Clic, Kwak et Banana Agent, prêts à courir."],
   ["grande_chambre", "La grande chambre", "Le terrain de jeu, vu d’en bas."],
 ] as const;
